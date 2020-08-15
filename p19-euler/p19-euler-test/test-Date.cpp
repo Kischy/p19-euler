@@ -160,6 +160,16 @@ TEST(DateAddSevenDaysTests, GoOverMarch)
 	EXPECT_TRUE(d == ex_d);
 }
 
+TEST(DateAddSevenDaysTests, GoOverMarchBug)
+{
+	Date d = Date(24, 3, 1900);
+	const Date ex_d = Date(31, 3, 1900);
+
+	d.addSevenDays();
+
+	EXPECT_TRUE(d == ex_d);
+}
+
 TEST(DateAddSevenDaysTests, GoOverMay)
 {
 	Date d = Date(25, 5, 1900);
@@ -233,10 +243,20 @@ TEST(DateAddSevenDaysTests, GoOverFebruaryLeapYear)
 	EXPECT_TRUE(d == ex_d);
 }
 
-
-TEST(DateAddSevenDaysTests, GoOverFebruaryNonLeapYearDivisableBy400)
+TEST(DateAddSevenDaysTests, GoOverFebruaryNonLeapYearCentury)
 {
-	Date d = Date(22, 2, 2000);
+	Date d = Date(22, 2, 1900);
+	const Date ex_d = Date(1, 3, 1900);
+
+	d.addSevenDays();
+
+	EXPECT_TRUE(d == ex_d);
+}
+
+
+TEST(DateAddSevenDaysTests, GoOverFebruaryLeapYearCentury)
+{
+	Date d = Date(23, 2, 2000);
 	const Date ex_d = Date(1, 3, 2000);
 
 	d.addSevenDays();

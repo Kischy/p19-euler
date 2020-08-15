@@ -21,6 +21,37 @@ public:
 		return false;
 	}
 
+	bool operator<=(const Date& rhs) const
+	{
+		if (*this < rhs)
+		{
+			return true;
+		}
+
+		if (*this == rhs)
+		{
+			return true;
+		}
+
+		return false;
+
+	}
+
+
+	bool operator>=(const Date& rhs)
+	{
+		if (*this > rhs)
+		{
+			return true;
+		}
+
+		if (*this == rhs)
+		{
+			return true;
+		}
+
+		return false;
+	}
 
 	bool operator>(const Date& rhs) const
 	{
@@ -89,9 +120,44 @@ public:
 		if (futureDay <= 28)
 		{
 			day = futureDay;
-			return;
 		}
-
+		else if (futureDay > 31) 
+		{
+			goToNextMonth(NoDays);
+		}
+		else if (futureDay == 31)
+		{
+			if ((is30dayMonth() || isFeb()))
+			{
+				goToNextMonth(NoDays);
+			}
+			else
+			{
+				day = futureDay;
+			}
+		}
+		else if (futureDay == 30)
+		{
+			if (isFeb())
+			{
+				goToNextMonth(NoDays);
+			}
+			else
+			{
+				day = futureDay;
+			}
+		}
+		else if (futureDay == 29)
+		{
+			if (isFeb() && !isLeapYear())
+			{
+				goToNextMonth(NoDays);
+			}
+			else
+			{
+				day = futureDay;
+			}
+		}
 
 
 		
@@ -100,6 +166,100 @@ public:
 
 private:
 	int day, month, year;
+
+	void goToNextMonth(const int NoDaysAdded)
+	{
+		if (is30dayMonth())
+		{
+			setNewDateNextMonth(30,NoDaysAdded);
+			return;
+		}
+
+		if (is31dayMonth())
+		{
+			setNewDateNextMonth(31, NoDaysAdded);
+			if (month == 13)
+			{
+				month = 1;
+				year++;
+			}
+			return;
+		}
+
+		if (isLeapYear())
+		{
+			setNewDateNextMonth(29, NoDaysAdded);
+		}
+		else
+		{
+			setNewDateNextMonth(28, NoDaysAdded);
+		}
+	}
+
+	void setNewDateNextMonth(const int daysInMonth, const int NoDaysAdded)
+	{
+		int used_days = daysInMonth - day;
+		int rem_days = NoDaysAdded - used_days;
+		day = rem_days;
+		month++;
+	}
+
+	bool isLeapYear() const
+	{
+		if ((year % 4) == 0)
+		{
+			if ((year % 100) == 0 && (year % 400) != 0)
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		return false;
+	}
+
+	
+
+	bool is31dayMonth()
+	{
+		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	bool is30dayMonth()
+	{
+		if (is31dayMonth() || isFeb())
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	bool isFeb() const
+	{
+		if (month == 2)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	bool isDec() const
+	{
+		if (month == 12)
+		{
+			return true;
+		}
+
+		return false;
+	}
 
 
 	bool isBiggerMonth(const int rhs_month, const int rhs_day) const 

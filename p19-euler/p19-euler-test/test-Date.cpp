@@ -64,3 +64,26 @@ TEST_F(DateOperatorYearTests, IsSmaller)
 	EXPECT_TRUE(smallerDate < biggerDate);
 }
 
+
+TEST(DateFunctionTests, IsFirstOfTheMonth)
+{
+	Date firstOfMonth = Date(01, 02, 1900);
+	Date NotFirstOfMonth = Date(02, 01, 1900);
+
+	EXPECT_TRUE(firstOfMonth.iSFirstOfMonth());
+	EXPECT_FALSE(NotFirstOfMonth.iSFirstOfMonth());
+	
+}
+
+TEST(DateAddSevenDaysTests, AddsSevenDays)
+{
+
+}
+
+
+/*
+Thirty days has September,
+April, June and November.
+*/
+
+

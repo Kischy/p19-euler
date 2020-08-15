@@ -10,8 +10,19 @@ public:
 		this->year = year;
 	}
 
+	
+	bool iSFirstOfMonth() const
+	{
+		if (day == 1)
+		{
+			return true;
+		}
 
-	bool operator>(const Date& rhs)
+		return false;
+	}
+
+
+	bool operator>(const Date& rhs) const
 	{
 		if (this->year > rhs.year)
 		{
@@ -30,9 +41,34 @@ public:
 	}
 
 
-	bool operator<(const Date& rhs)
+	bool operator<(const Date& rhs) const 
 	{
+		if (*this > rhs)
+		{
+			return false;
+		}
+
+		if (this->day == rhs.day && this->month == rhs.month && this->year == rhs.year)
+		{
+			return false;
+		}
+
 		return true;
+	}
+
+	int getDay() const
+	{
+		return day;
+	}
+
+	int getMonth() const
+	{
+		return month;
+	}
+
+	int getYear() const
+	{
+		return year;
 	}
 
 
@@ -40,7 +76,7 @@ private:
 	int day, month, year;
 
 
-	bool isBiggerMonth(const int rhs_month, const int rhs_day)
+	bool isBiggerMonth(const int rhs_month, const int rhs_day) const 
 	{
 		if (this->month > rhs_month)
 		{

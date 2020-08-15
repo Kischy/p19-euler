@@ -48,12 +48,22 @@ public:
 			return false;
 		}
 
-		if (this->day == rhs.day && this->month == rhs.month && this->year == rhs.year)
+		if (*this == rhs)
 		{
 			return false;
 		}
 
 		return true;
+	}
+
+	bool operator==(const Date& rhs) const
+	{
+		if (this->day == rhs.day && this->month == rhs.month && this->year == rhs.year)
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	int getDay() const
@@ -69,6 +79,22 @@ public:
 	int getYear() const
 	{
 		return year;
+	}
+
+	void addSevenDays()
+	{
+		const int NoDays = 7;
+		int futureDay = day + 7;
+
+		if (futureDay <= 28)
+		{
+			day = futureDay;
+			return;
+		}
+
+
+
+		
 	}
 
 

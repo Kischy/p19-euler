@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Date.cpp" />
     <ClCompile Include="p19-euler.cpp" />
   </ItemGroup>
   <ItemGroup>
